@@ -1,9 +1,12 @@
 FROM ubuntu:18.04
 MAINTAINER Flyrainning "http://www.fengpiao.net"
 
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -y \
   && apt-get install -y \
+    openssl \
+    nginx \
     php-fpm \
     php-cli \
     php-imagick \
@@ -11,13 +14,12 @@ RUN apt-get update -y \
     php-services-json \
     php-mail \
     php-mbstring \
-    php-mcrypt \
     php-memcached \
     php-mongodb \
     php-redis \
-    php-ssh2 \
     php-xml \
     php-zip \
+    php-ssh2 \
     php-curl \
     php-gd \
     php-mysql \
@@ -33,7 +35,6 @@ RUN apt-get update -y \
     php-net-socket \
     php-pgsql \
     php-yaml \
-    nginx \
   && apt-get autoclean \
   && apt-get autoremove \
   && rm -rf /var/lib/apt/lists/*
