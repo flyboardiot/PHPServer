@@ -35,6 +35,9 @@ RUN apt-get update -y \
     php-net-socket \
     php-pgsql \
     php-yaml \
+    php-pear \
+    php-dev \
+    librdkafka-dev \
   && apt-get autoclean \
   && apt-get autoremove \
   && rm -rf /var/lib/apt/lists/*
@@ -42,6 +45,11 @@ RUN apt-get update -y \
 ADD etc /etc
 ADD app /app
 ADD bin /bin
+
+RUN pecl install rdkafka
+RUN echo extension=rdkafka.so > /etc/php/7.2/mods-available/rdkafka.ini
+RUN ln /etc/php/7.2/mods-available/rdkafka.ini /etc/php/7.2/fpm/conf.d/20-rakafka.ini
+
 
 WORKDIR /app
 RUN chmod a+x /bin/start.sh /bin/install.sh
